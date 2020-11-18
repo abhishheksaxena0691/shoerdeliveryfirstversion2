@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+  <% include ../templates/head %>
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <!-- top navigation -->
+        <% include ../templates/header %>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main" text="center">
+          <div class="pad-30">
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12 tab-pane">
+                <h3>Profile</h3>
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>My Details</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <br />
+                    <div class="row">
+                      <div class="col-md-3 col-sm-12 col-xs-12">
+                        <div class="profile_img text-center">
+                          <img
+                            id="profileImageHolder"
+                            src="<%=user.image?user.image:'images/user.png'%>"
+                            alt="Profile Image"
+                            title="Change Profile Image"
+                            style="max-width: 100%;"
+                          />
+                        </div>
+                        <br />
+                        <form
+                          id="imageUploadForm"
+                          enctype="multipart/form-data"
+                          action="update-profile-image"
+                          method="post"
+                        >
+                          <div class="text-center">
+                            <label class="btn-grn ">
+                              Upload New
+                              <input
+                                type="file"
+                                id="profileImage"
+                                name="file"
+                                onchange="onImageChange(this);"
+                                class="hidden"
+                              />
+                            </label>
+                          </div>
+                          <div class="text-center">
+                            <button
+                              type="submit"
+                              class="btn-grn hidden"
+                              id="imageUploadFormBtn"
+                            >
+                              Save
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                      <br />
+                      <br />
+                      <div class="col-md-9 col-sm-12 col-xs-12">
+                        <form
+                          action="update-profile"
+                          id="userProfileForm"
+                          method="POST"
+                          data-parsley-validate
+                          class="form-horizontal form-label-left"
+                        >
+                          <div class="form-group">
+                            <label
+                              class="control-label col-md-3 col-sm-3 col-xs-12"
+                              for="fullname"
+                              >Full Name <span class="required">*</span>
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                              <input
+                                type="text"
+                                name="fullname"
+                                value="<%=user.fullname%>"
+                                required="required"
+                                minlength="3"
+                                class="form-control col-md-7 col-xs-12"
+                              />
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label
+                              class="control-label col-md-3 col-sm-3 col-xs-12"
+                              for="last-name"
+                              >Email <span class="required">*</span>
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                              <input
+                                type="email"
+                                name="email"
+                                value="<%=user.email%>"
+                                required="required"
+                                class="form-control col-md-7 col-xs-12"
+                              />
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label
+                              class="control-label col-md-3 col-sm-3 col-xs-12"
+                              for="last-name"
+                              >Phone Number <span class="required">*</span>
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                              <input
+                                type="text"
+                                name="phoneNumber"
+                                value="<%=user.mobile%>"
+                                readonly
+                                required="required"
+                                class="form-control col-md-7 col-xs-12"
+                              />
+                            </div>
+                          </div>
+                          <div class="ln_solid"></div>
+                          <div class="form-group">
+                            <div
+                              class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3"
+                            >
+                              <button class="btn-grey" type="reset">
+                                Reset
+                              </button>
+                              <button
+                                type="submit"
+                                class="btn-grn"
+                                id="userProfileFormBtn"
+                              >
+                                Submit
+                              </button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12 tab-pane">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Change Password</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <br />
+                    <div class="row">
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <form
+                          action="change-password"
+                          id="changePasswordForm"
+                          method="POST"
+                          data-parsley-validate
+                          class="form-horizontal form-label-left"
+                        >
+                          <div class="form-group">
+                            <label
+                              class="control-label col-md-3 col-sm-3 col-xs-12"
+                              for="newpassword"
+                              >New Password <span class="required">*</span>
+                            </label>
+                            <div class="col-md-4 col-sm-4 col-xs-12">
+                              <input
+                                type="password"
+                                name="newpassword"
+                                required="required"
+                                class="form-control col-md-7 col-xs-12"
+                              />
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label
+                              class="control-label col-md-3 col-sm-3 col-xs-12"
+                              for="newpasswordre"
+                              >Confirm New Password
+                              <span class="required">*</span>
+                            </label>
+                            <div class="col-md-4 col-sm-4 col-xs-12">
+                              <input
+                                type="password"
+                                name="newpasswordre"
+                                required="required"
+                                class="form-control col-md-7 col-xs-12"
+                              />
+                            </div>
+                          </div>
+                          <div class="ln_solid"></div>
+                          <div class="form-group">
+                            <div
+                              class="col-md-6 col-sm-6 col-xs-12 col-md-offset-4"
+                            >
+                              <button class="btn-grey" type="reset">
+                                Reset
+                              </button>
+                              <button
+                                type="submit"
+                                class="btn-grn"
+                                id="changePasswordFormBtn"
+                              >
+                                Submit
+                              </button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer style="position: relative;">
+          <div class="pull-left">
+            Acme Shoes ©2019 All Rights Reserved
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="vendors/nprogress/nprogress.js"></script>
+    <!-- iCheck -->
+    <script src="vendors/iCheck/icheck.min.js"></script>
+    <!-- Datatables -->
+    <script src="vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <script src="vendors/jszip/dist/jszip.min.js"></script>
+    <script src="vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="vendors/pdfmake/build/vfs_fonts.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="js/custom.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="js/loggedin.js"></script>
+  </body>
+</html>
